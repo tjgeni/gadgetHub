@@ -10,7 +10,16 @@ use App\Http\Controllers\User\AboutController;
 use App\Http\Controllers\User\ContactController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => redirect('/login'));
+Route::get('/', function () {
+    if (! auth()->check()) {
+        return redirect('/login');
+    }
+    if (auth()->user()->role === 'admin') {
+        return redirect('/admin/dashboard');
+    }
+
+    return redirect('/home');
+});
 // ── Auth ───────────────────────────────────────────────
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);

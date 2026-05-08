@@ -56,13 +56,47 @@
                                         <i class="bi bi-pencil"></i> Edit
                                     </a>
                                     <form action="{{ route('admin.categories.destroy', $cat) }}" method="POST"
-                                        class="d-inline" onsubmit="return confirm('Yakin hapus kategori ini?')">
+                                        id="delete-form-{{ $cat->id }}" class="d-inline">
                                         @csrf @method('DELETE')
-                                        <button class="btn btn-sm"
+                                        <button class="btn btn-sm" data-bs-toggle="modal" type="button"
+                                            data-bs-target="#deleteModal{{ $cat->id }}"
                                             style="border:1px solid #EF4444;color:#EF4444;border-radius:7px;font-size:.8rem;">
                                             <i class="bi bi-trash"></i> Hapus
                                         </button>
                                     </form>
+                                    <div class="modal fade" id="deleteModal{{ $cat->id }}" tabindex="-1"
+                                        aria-hidden="true">
+
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Konfirmasi Hapus</h5>
+
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    Yakin hapus kategori
+                                                    <strong>{{ $cat->name }}</strong>?
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        Batal
+                                                    </button>
+
+                                                    <button type="submit" form="delete-form-{{ $cat->id }}"
+                                                        class="btn btn-danger">
+                                                        Ya, Hapus
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

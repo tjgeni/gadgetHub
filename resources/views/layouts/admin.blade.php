@@ -389,26 +389,7 @@
             <a href="/admin/messages" class="sidebar-link {{ request()->is('admin/messages*') ? 'active' : '' }}">
                 <i class="bi bi-chat-dots"></i> Pesan Masuk
             </a>
-
-            <hr class="sidebar-divider">
-
-            <form action="/logout" method="POST" class="mt-1">
-                @csrf
-                <button type="submit" class="btn-logout">
-                    <i class="bi bi-box-arrow-right"></i> Logout
-                </button>
-            </form>
         </nav>
-
-        <div class="sidebar-footer">
-            <div class="sidebar-user">
-                <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
-                <div>
-                    <div class="user-name">{{ Auth::user()->name }}</div>
-                    <div class="user-role">Administrator</div>
-                </div>
-            </div>
-        </div>
     </aside>
 
     {{-- MAIN --}}
@@ -424,9 +405,38 @@
                     <i class="bi bi-gear"></i>
                 </a>
                 <div class="topbar-divider"></div>
-                <div class="topbar-user">
-                    <div class="topbar-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
-                    <span class="topbar-username">{{ Auth::user()->name }}</span>
+                <div class="dropdown">
+                    <div class="topbar-user d-flex align-items-center gap-2 dropdown-toggle" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="topbar-avatar">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+
+                        <span class="topbar-username">
+                            {{ Auth::user()->name }}
+                        </span>
+                    </div>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="/profile" style="font-size:14px;">
+                                <i class="bi bi-person me-2"></i>Profil Saya
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="dropdown-item text-danger w-100 border-0 bg-transparent text-start"
+                                    style="font-size:14px;">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </header>
