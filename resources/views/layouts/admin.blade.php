@@ -392,10 +392,6 @@
 
             <hr class="sidebar-divider">
 
-            <a href="/" class="sidebar-link" target="_blank">
-                <i class="bi bi-arrow-up-right-square"></i> Lihat Toko
-            </a>
-
             <form action="/logout" method="POST" class="mt-1">
                 @csrf
                 <button type="submit" class="btn-logout">
