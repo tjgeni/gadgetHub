@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('subject');
             $table->text('body');
             $table->timestamps();
+            $table->string('created_by', length: 255)->nullable();
+            $table->softDeletes('deleted_at');
         });
     }
 

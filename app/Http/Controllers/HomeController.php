@@ -9,8 +9,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->latest()->take(8)->get();
-        $categories = Category::all();
+        $products = Product::with('category')
+            ->select('id', 'category_id', 'name', 'description', 'price', 'stock', 'image', 'created_by')
+            ->latest()
+            ->take(8)
+            ->get();
+
+        $categories = Category::select('id', 'name', 'created_at');
 
         return view('user.home', compact('products', 'categories'));
     }

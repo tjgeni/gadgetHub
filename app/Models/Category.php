@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    protected $fillable = ['name'];
+    use SoftDeletes;
 
-    public function products()
+    protected $fillable = ['name', 'created_by', 'updated_by'];
+
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

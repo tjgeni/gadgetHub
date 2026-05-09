@@ -15,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->latest()->paginate(10);
+        $products = Product::with('category')
+            ->select('id', 'name', 'description', 'category_id', 'price', 'stock', 'image', 'created_at')
+            ->latest()->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -25,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::select('id', 'name')->get();
 
         return view('admin.products.create', compact('categories'));
     }
@@ -41,28 +43,32 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ], [
             'name.required' => 'Nama produk wajib diisi.',
             'category_id.required' => 'Kategori wajib dipilih.',
             'price.required' => 'Harga wajib diisi.',
             'stock.required' => 'Stok wajib diisi.',
             'image.image' => 'File harus berupa gambar.',
-            'image.max' => 'Ukuran gambar maksimal 2MB.',
+            'image.max' => 'Ukuran gambar maksimal 5MB.',
         ]);
 
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');
         }
-        Product::create([
+
+        $loggedInUser = auth()->guard('web')->user();
+        $newProduct = new Product([
             'name' => $request->name,
-            'category_id' => $request->category_id,
             'price' => $request->price,
             'stock' => $request->stock,
             'description' => $request->description,
             'image' => $imagePath,
+            'created_by' => $loggedInUser->email,
         ]);
+        $newProduct->category()->associate($request->category_id);
+        $newProduct->save();
 
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil ditambahkan!');
     }
@@ -72,7 +78,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::all();
+        $categories = Category::select('id', 'name')->get();
 
         return view('admin.products.edit', compact('product', 'categories'));
     }
@@ -88,8 +94,9 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
+
         $imagePath = $product->image;
         if ($request->hasFile('image')) {
             if ($product->image) {
@@ -97,6 +104,9 @@ class ProductController extends Controller
             }
             $imagePath = $request->file('image')->store('products', 'public');
         }
+
+        $loggedInUser = auth()->guard('web')->user();
+
         $product->update([
             'name' => $request->name,
             'category_id' => $request->category_id,
@@ -104,6 +114,7 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'description' => $request->description,
             'image' => $imagePath,
+            'updated_by' => $loggedInUser->email,
         ]);
 
         return redirect()->route('admin.products.index')

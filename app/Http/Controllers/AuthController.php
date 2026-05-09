@@ -28,6 +28,7 @@ class AuthController extends Controller
             'password.min' => 'Password minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -49,7 +50,9 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
         $credentials = $request->only('email', 'password');
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             if (Auth::user()->role === 'admin') {

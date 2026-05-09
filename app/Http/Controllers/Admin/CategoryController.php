@@ -13,7 +13,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::withCount('products')->latest()->get();
+        $categories = Category::withCount('products')
+            ->select('id', 'name', 'created_at')
+            ->latest()
+            ->paginate(10);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -37,7 +40,13 @@ class CategoryController extends Controller
             'name.required' => 'Nama kategori wajib diisi.',
             'name.unique' => 'Nama kategori sudah ada.',
         ]);
-        Category::create(['name' => $request->name]);
+
+        $loggedInUser = auth()->guard('web')->user();
+
+        Category::create([
+            'name' => $request->name,
+            'created_by' => $loggedInUser->email,
+        ]);
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Kategori berhasil ditambahkan!');
@@ -62,7 +71,12 @@ class CategoryController extends Controller
             'name.required' => 'Nama kategori wajib diisi.',
             'name.unique' => 'Nama kategori sudah ada.',
         ]);
-        $category->update(['name' => $request->name]);
+
+        $loggedInUser = auth()->guard('web')->user();
+        $category->update([
+            'name' => $request->name,
+            'updated_by' => $loggedInUser->email,
+        ]);
 
         return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil diupdate!');
     }

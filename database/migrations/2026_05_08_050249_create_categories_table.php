@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id()->generatedAs()->always();
             $table->string('name');
             $table->timestamps();
+            $table->string('created_by', length: 255)->nullable();
+            $table->string('updated_by', length: 255)->nullable();
+            $table->softDeletes('deleted_at');
         });
     }
 

@@ -98,7 +98,7 @@
                                 <input type="file" name="image" id="imageInput"
                                     class="form-control @error('image') is-invalid @enderror" accept="image/*"
                                     style="border-color:var(--border);border-radius:8px;font-size:.875rem;">
-                                <div class="form-text" style="color:var(--text-subtle);">Format: JPG, PNG, WEBP. Maks 2MB.
+                                <div class="form-text" style="color:var(--text-subtle);">Format: JPG, PNG, WEBP. Maks 5MB.
                                 </div>
                                 @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>

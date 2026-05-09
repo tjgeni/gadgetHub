@@ -492,17 +492,6 @@
         <a href="/produk?kategori=gaming" class="chip"><i class="bi bi-controller"></i> Gaming</a>
     </div>
 
-    {{-- PROMO BANNER --}}
-    <div class="promo-banner">
-        <div>
-            <div class="promo-eyebrow">Promo terbatas</div>
-            <div class="promo-title">Diskon hingga 40% untuk aksesoris pilihan</div>
-            <div class="promo-desc">Berlaku s/d akhir bulan ini — jangan sampai kehabisan!</div>
-        </div>
-        <a href="/produk?promo=1" class="btn-promo">
-            <i class="bi bi-tag-fill me-1"></i> Lihat Promo
-        </a>
-    </div>
 
     {{-- PRODUK TERBARU --}}
     <div class="section-header">

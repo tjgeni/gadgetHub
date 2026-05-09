@@ -345,6 +345,35 @@
             border-radius: 8px;
             font-size: 0.875rem;
         }
+
+        .table>thead>tr>th,
+        .table>tbody>tr>td {
+            padding: 14px 20px;
+        }
+
+        .pagination .page-link {
+            color: var(--primary);
+            border-color: var(--border);
+            background: var(--surface);
+        }
+
+        .pagination .page-link:hover {
+            color: var(--primary);
+            background: rgba(124, 58, 237, 0.1);
+            border-color: var(--primary);
+        }
+
+        .pagination .page-item.active .page-link {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            background: var(--surface-2);
+            border-color: var(--border);
+            color: var(--text-muted);
+        }
     </style>
     @stack('styles')
 </head>

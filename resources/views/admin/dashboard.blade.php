@@ -15,7 +15,7 @@
                         style="width:48px;height:48px;background:rgba(124,58,237,0.12);">
                         <i class="bi bi-cpu" style="font-size:1.4rem;color:var(--primary);"></i>
                     </div>
-                    <h3 class="fw-bold mt-1 mb-0" style="color:var(--text);">{{ $totalProduk }}</h3>
+                    <h3 class="fw-bold mt-1 mb-0" style="color:var(--text);">{{ $total_product }}</h3>
                     <small style="color:var(--text-muted);">Total Produk</small>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         style="width:48px;height:48px;background:rgba(217,70,239,0.10);">
                         <i class="bi bi-tag" style="font-size:1.4rem;color:var(--magenta);"></i>
                     </div>
-                    <h3 class="fw-bold mt-1 mb-0" style="color:var(--text);">{{ $totalKategori }}</h3>
+                    <h3 class="fw-bold mt-1 mb-0" style="color:var(--text);">{{ $total_categories }}</h3>
                     <small style="color:var(--text-muted);">Total Kategori</small>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                         style="width:48px;height:48px;background:rgba(124,58,237,0.08);">
                         <i class="bi bi-people" style="font-size:1.4rem;color:var(--primary-light);"></i>
                     </div>
-                    <h3 class="fw-bold mt-1 mb-0" style="color:var(--text);">{{ $totalUser }}</h3>
+                    <h3 class="fw-bold mt-1 mb-0" style="color:var(--text);">{{ $total_users }}</h3>
                     <small style="color:var(--text-muted);">Total User</small>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                         style="width:48px;height:48px;background:rgba(217,70,239,0.10);">
                         <i class="bi bi-bag-check" style="font-size:1.4rem;color:var(--magenta);"></i>
                     </div>
-                    <h3 class="fw-bold mt-1 mb-0" style="color:var(--text);">{{ $totalPesanan }}</h3>
+                    <h3 class="fw-bold mt-1 mb-0" style="color:var(--text);">{{ $total_order }}</h3>
                     <small style="color:var(--text-muted);">Total Pesanan</small>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                         <i class="bi bi-hourglass-split fs-4" style="color:var(--magenta);"></i>
                     </div>
                     <div>
-                        <div class="fw-bold fs-4" style="color:var(--text);">{{ $pesananPending }}</div>
+                        <div class="fw-bold fs-4" style="color:var(--text);">{{ $total_pending_orders }}</div>
                         <div class="small" style="color:var(--text-muted);">Pesanan Pending</div>
                     </div>
                     <a href="/admin/orders" class="btn btn-sm ms-auto"
@@ -87,7 +87,7 @@
                         <i class="bi bi-check-circle fs-4" style="color:var(--primary);"></i>
                     </div>
                     <div>
-                        <div class="fw-bold fs-4" style="color:var(--text);">{{ $pesananSelesai }}</div>
+                        <div class="fw-bold fs-4" style="color:var(--text);">{{ $total_done_orders }}</div>
                         <div class="small" style="color:var(--text-muted);">Pesanan Selesai</div>
                     </div>
                     <a href="/admin/orders" class="btn btn-sm ms-auto"
@@ -105,7 +105,7 @@
             </h6>
         </div>
         <div class="card-body p-0">
-            @if ($pesananTerbaru->isEmpty())
+            @if ($latest_total_orders->isEmpty())
                 <div class="text-center py-4" style="color:var(--text-muted);">Belum ada pesanan.</div>
             @else
                 <div class="table-responsive">

@@ -137,8 +137,9 @@
         }
 
         .feature-icon.teal {
-            background: rgba(20, 184, 166, 0.12);
+            background: rgba(20, 184, 166, 0.20);
             color: #2DD4BF;
+            border: 1px solid rgba(20, 184, 166, 0.25);
         }
 
         .feature-title {
@@ -413,7 +414,7 @@
                 </div>
             </div>
             <div class="feature-item">
-                <div class="feature-icon teal"><i class="bi bi-shield-check-fill"></i></div>
+                <div class="feature-icon teal"><i class="bi bi-patch-check-fill"></i></div>
                 <div>
                     <div class="feature-title">Garansi Resmi</div>
                     <div class="feature-desc">Semua produk 100% original</div>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -23,11 +22,15 @@ class ContactController extends Controller
             'subject.required' => 'Subjek wajib diisi.',
             'body.required' => 'Pesan wajib diisi.',
         ]);
-        Message::create([
-            'user_id' => Auth::id(),
+
+        $loggedInUser = auth()->guard('web')->user();
+        $newMessage = new Message([
             'subject' => $request->subject,
             'body' => $request->body,
+            'created_by' => $loggedInUser->email,
         ]);
+        $newMessage->user()->associate($loggedInUser);
+        $newMessage->save();
 
         return back()->with('success', 'Pesan berhasil dikirim ke admin!');
     }
